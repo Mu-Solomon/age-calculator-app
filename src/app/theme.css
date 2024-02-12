@@ -1,0 +1,27 @@
+/* Colors */
+
+/* Primary */
+:root {
+    --color-purple: #854dff;
+    --color-light-red: #ff5757;
+  }
+  
+  /* Neutral */
+  :root {
+    --color-white: #ffffff;
+    --color-off-white: #f0f0f0;
+    --color-light-grey: #dbdbdb;
+    --color-smokey-grey: #716f6f;
+    --color-off-black: #141414;
+  }
+  
+  /* Typography */
+  
+  /* Body Copy */
+  :root {
+    --font-size-body-copy: 32px;
+  }
+  
+  /* Font */
+  /* Add font-family declarations here */
+  
