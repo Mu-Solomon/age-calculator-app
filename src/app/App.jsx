@@ -9,10 +9,15 @@ const App = () => {
   const [inputError, setInputError] = useState("");
   const [invalidDateError, setInvalidDateError] = useState("");
 
-  const [day, setDay] = useState(25);
-  const [month, setMonth] = useState(12); // MARCH
-  const [year, setYear] = useState(2004);
+  //INPUT
+  const [day, setDay] = useState();
+  const [month, setMonth] = useState();
+  const [year, setYear] = useState();
 
+  //OUTPUT
+  const [days, setDays] = useState(0);
+  const [months, setMonths] = useState(0); // MARCH
+  const [years, setYears] = useState(0);
   const handleDay = (e) => {
     setDay(e.target.value);
   };
@@ -40,7 +45,11 @@ const App = () => {
     if (todayMonth == birthMonth) {
       if (todayDay == birthDay) {
         const age = todayDate.getFullYear() - birthDate.getFullYear();
-        console.log("Everything has matched both month and day", age, " years");
+        console.log(
+          "Everything has matched both month and day, happy birthday",
+          age,
+          " years"
+        );
         return age;
       } else {
         const age = todayDate.getFullYear() - birthDate.getFullYear() - 1;
@@ -63,16 +72,23 @@ const App = () => {
       var monthsOld = todayDate.getMonth() - birthDate.getMonth();
       var daysOld = 0;
       if (todayDate.getDate() == birthDate.getDate()) {
-        monthsOld += 1;
+        console.log(age, "years", monthsOld, "months", "00 days old");
       } else if (todayDate.getDate() > birthDate.getDate()) {
-        monthsOld += 1;
         daysOld = todayDate.getDate() - birthDate.getDate();
-        console.log(monthsOld, "months old and", daysOld, "days old");
+        console.log(
+          age,
+          "age",
+          monthsOld,
+          "months old and",
+          daysOld,
+          "days old"
+        );
       } else {
+        monthsOld -= 1;
         const daysOld = todayDate.getDate();
-        console.log(daysOld, "days old");
+        console.log(age, "years", monthsOld, "months", daysOld, "days old");
       }
-      console.log(monthsOld);
+      /* console.log(monthsOld); */
     } else {
       const age = todayDate.getFullYear() - birthDate.getFullYear() - 1;
       const remainingMonths = [];
@@ -84,7 +100,13 @@ const App = () => {
 
       if (todayDay == birthDay) {
         remainingMonths.length += 1;
-        console.log(remainingMonths.length, "months old");
+        console.log(
+          age,
+          "years",
+          remainingMonths.length,
+          "months",
+          "00 days old"
+        );
       } else if (todayDay < birthDay) {
         console.log(
           age,
@@ -96,6 +118,8 @@ const App = () => {
         );
       } else {
         console.log(
+          age,
+          "years",
           remainingMonths.length,
           "months",
           todayDay - birthDay,
