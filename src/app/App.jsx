@@ -9,8 +9,8 @@ const App = () => {
   const [inputError, setInputError] = useState("");
   const [invalidDateError, setInvalidDateError] = useState("");
 
-  const [day, setDay] = useState(12);
-  const [month, setMonth] = useState(2); // MAY
+  const [day, setDay] = useState(28);
+  const [month, setMonth] = useState(3); // MARCH
   const [year, setYear] = useState(2004);
 
   const handleDay = (e) => {
@@ -24,7 +24,7 @@ const App = () => {
   };
 
   const calculateAge = () => {
-    const todayDate = new Date("2024-08-24");
+    const todayDate = new Date("2024-01-27");
     const birthDate = new Date(`${year}-0${month}-${day}`);
 
     //Todays initials
@@ -44,29 +44,60 @@ const App = () => {
         return age;
       } else {
         const age = todayDate.getFullYear() - birthDate.getFullYear() - 1;
-        for (let month = 0; month < todayMonth; month++) {
-          console.log(month);
+        const monthsOld = todayDate.getMonth() - birthDate.getMonth();
+
+        if (todayDay < birthDay) {
+          console.log(age, "years", 11, "months", todayDay, "days old");
+          console.log("Less than the birthday");
+        } else if (todayDay > birthDay) {
+          const age = todayDate.getFullYear() - birthDate.getFullYear();
+          const daysOld = todayDate.getDate() - birthDate.getDate();
+
+          console.log(age, "years", "00", "months", daysOld, "days old");
+
+          console.log("Greater than the birthday");
         }
+      }
+    } else if (todayMonth > birthMonth) {
+      const age = todayDate.getFullYear() - birthDate.getFullYear();
+      var monthsOld = todayDate.getMonth() - birthDate.getMonth();
+      var daysOld = 0;
+      if (todayDate.getDate() == birthDate.getDate()) {
+        monthsOld += 1;
+      } else if (todayDate.getDate() > birthDate.getDate()) {
+        monthsOld += 1;
+        daysOld = todayDate.getDate() - birthDate.getDate();
+        console.log(monthsOld, "months old and", daysOld, "days old");
+      } else {
+        const daysOld = todayDate.getDate();
+        console.log(daysOld, "days old");
+      }
+      console.log(monthsOld);
+    } else {
+      const remainingMonths = [];
+      for (let month = todayMonth; month < birthMonth; month++) {
+        remainingMonths.push(month);
+      }
+      console.log(remainingMonths);
+      if (todayDay == birthDay) {
+        remainingMonths.length += 1;
+        console.log(remainingMonths.length, "months old");
+      } else if (todayDay < birthDay) {
+        console.log(remainingMonths.length, "months", todayDay, "days old");
+      } else {
         console.log(
-          "Month has matched but the days ain't the same!",
-          age,
-          "years"
+          remainingMonths.length,
+          "months",
+          todayDay - birthDay,
+          "days old"
         );
       }
-    } else {
-      console.log("Month ain't matched either!");
-      var totalDays = 0;
-      for (let month = 0; month < todayMonth; month++) {
-        //Getting days in each month!
-        const numberOfDays = new Date(todayYear, month + 1, 0).getDate();
-        totalDays += numberOfDays;
-        console.log(month + 1, numberOfDays, " days");
-      }
-      console.log(totalDays);
+
+      console.log("Today's month is less than birth month!");
     }
 
-    /*  console.log("Birth day", birthDate);
-    console.log("Today day", todayDate); */
+    console.log("Birth day", birthDate);
+    console.log("Today day", todayDate);
   };
 
   return (
