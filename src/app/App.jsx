@@ -9,8 +9,8 @@ const App = () => {
   const [inputError, setInputError] = useState("");
   const [invalidDateError, setInvalidDateError] = useState("");
 
-  const [day, setDay] = useState(28);
-  const [month, setMonth] = useState(3); // MARCH
+  const [day, setDay] = useState(25);
+  const [month, setMonth] = useState(12); // MARCH
   const [year, setYear] = useState(2004);
 
   const handleDay = (e) => {
@@ -24,7 +24,7 @@ const App = () => {
   };
 
   const calculateAge = () => {
-    const todayDate = new Date("2024-01-27");
+    const todayDate = new Date();
     const birthDate = new Date(`${year}-0${month}-${day}`);
 
     //Todays initials
@@ -74,16 +74,26 @@ const App = () => {
       }
       console.log(monthsOld);
     } else {
+      const age = todayDate.getFullYear() - birthDate.getFullYear() - 1;
       const remainingMonths = [];
-      for (let month = todayMonth; month < birthMonth; month++) {
+      for (let month = birthMonth + 1; month <= 12; month++) {
         remainingMonths.push(month);
       }
+
       console.log(remainingMonths);
+
       if (todayDay == birthDay) {
         remainingMonths.length += 1;
         console.log(remainingMonths.length, "months old");
       } else if (todayDay < birthDay) {
-        console.log(remainingMonths.length, "months", todayDay, "days old");
+        console.log(
+          age,
+          "years",
+          remainingMonths.length,
+          "months",
+          todayDay,
+          "days old"
+        );
       } else {
         console.log(
           remainingMonths.length,
