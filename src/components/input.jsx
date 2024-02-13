@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 const Input = ({
@@ -8,12 +9,18 @@ const Input = ({
   handleMonth,
   handleYear,
 }) => {
+  /* console.log(appError);
+   */
   return (
-    <div className="flex  p-8 py-14 md:mx-3">
+    <div className="flex  p-8 py-14 md:gap-4 md:mx-3">
       <div className="flex flex-col gap-[2px]">
         <p
           className={`${
-            appError || inputError || invalidDateError
+            appError.day ||
+            inputError.day ||
+            inputError.month ||
+            inputError.year ||
+            invalidDateError
               ? "text-[#ff5757]"
               : "text-[#716f6f]"
           } text-sm font-bold tracking-[2px]`}
@@ -26,19 +33,23 @@ const Input = ({
           name="day"
           placeholder="DD"
           className={`${
-            appError || inputError || invalidDateError
+            appError.day ||
+            inputError.day ||
+            inputError.month ||
+            inputError.year ||
+            invalidDateError
               ? "border border-[#ff5757]"
               : "border"
           } w-20 md:w-28  h-12 rounded-lg p-3 mr-3 font-bold text-xl text-[#141414] hover:border-[#854dff] hover:cursor-pointer  focus:outline-none`}
         />
-        {appError ? (
+        {appError.day ? (
           <p className="text-[8px] text-[#ff5757] md:text-[10px] italic">
             This field is required
           </p>
         ) : (
           ""
         )}
-        {inputError ? (
+        {inputError.day ? (
           <p className="text-[8px] text-[#ff5757] md:text-[10px] italic">
             Must be a valid day
           </p>
@@ -56,7 +67,11 @@ const Input = ({
       <div className="flex flex-col gap-[2px]">
         <p
           className={`${
-            appError || inputError || invalidDateError
+            appError.month ||
+            inputError.day ||
+            inputError.month ||
+            inputError.year ||
+            invalidDateError
               ? "text-[#ff5757]"
               : "text-[#716f6f]"
           } text-sm font-bold tracking-[2px]`}
@@ -69,19 +84,23 @@ const Input = ({
           name="month"
           placeholder="MM"
           className={`${
-            appError || inputError || invalidDateError
+            appError.month ||
+            inputError.day ||
+            inputError.month ||
+            inputError.year ||
+            invalidDateError
               ? "border border-[#ff5757]"
               : "border"
           } w-20 md:w-28  h-12 rounded-lg p-3 mr-3 font-bold text-xl text-[#141414] hover:border-[#854dff] hover:cursor-pointer  focus:outline-none`}
         />
-        {appError ? (
+        {appError.month ? (
           <p className="text-[8px] text-[#ff5757] md:text-[10px] italic">
             This field is required
           </p>
         ) : (
           ""
         )}
-        {inputError ? (
+        {inputError.month ? (
           <p className="text-[8px] text-[#ff5757] md:text-[10px] italic">
             Must be a valid month
           </p>
@@ -92,7 +111,11 @@ const Input = ({
       <div className="flex flex-col gap-[2px]">
         <p
           className={`${
-            appError || inputError || invalidDateError
+            appError.year ||
+            inputError.day ||
+            inputError.month ||
+            inputError.year ||
+            invalidDateError
               ? "text-[#ff5757]"
               : "text-[#716f6f]"
           } text-sm font-bold tracking-[2px]`}
@@ -105,19 +128,23 @@ const Input = ({
           name="year"
           placeholder="YYYY"
           className={`${
-            appError || inputError || invalidDateError
+            appError.year ||
+            inputError.day ||
+            inputError.month ||
+            inputError.year ||
+            invalidDateError
               ? "border border-[#ff5757]"
               : "border"
           } w-20 md:w-28  h-12 rounded-lg p-3 mr-3 font-bold text-xl text-[#141414] hover:border-[#854dff] hover:cursor-pointer  focus:outline-none`}
         />
-        {appError ? (
+        {appError.year ? (
           <p className="text-[8px] text-[#ff5757] md:text-[10px] italic">
             This field is required
           </p>
         ) : (
           ""
         )}
-        {inputError ? (
+        {inputError.year ? (
           <p className="text-[8px] text-[#ff5757] md:text-[10px] italic">
             Must be in the past
           </p>

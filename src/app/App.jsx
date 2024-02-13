@@ -5,9 +5,17 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 const App = () => {
-  const [appError, setAppError] = useState("");
-  const [inputError, setInputError] = useState("");
-  const [invalidDateError, setInvalidDateError] = useState("");
+  const [appError, setAppError] = useState({
+    day: false,
+    month: false,
+    year: false,
+  });
+  const [inputError, setInputError] = useState({
+    day: false,
+    month: false,
+    year: false,
+  });
+  const [invalidDateError, setInvalidDateError] = useState(false);
 
   //INPUT
   const [day, setDay] = useState();
@@ -15,9 +23,9 @@ const App = () => {
   const [year, setYear] = useState();
 
   //OUTPUT
-  const [days, setDays] = useState(0);
-  const [months, setMonths] = useState(0); // MARCH
-  const [years, setYears] = useState(0);
+  const [days, setDays] = useState("");
+  const [months, setMonths] = useState("");
+  const [years, setYears] = useState("");
   const handleDay = (e) => {
     setDay(e.target.value);
   };
@@ -28,6 +36,43 @@ const App = () => {
     setYear(e.target.value);
   };
 
+  const checkErr = () => {
+    if (!year || !parseInt(year)) {
+      setInputError({
+        day: false,
+        month: false,
+        year: false,
+      });
+      setAppError((prevErrors) => ({ ...prevErrors, year: true }));
+      setInvalidDateError(false);
+    } else if (!month || !parseInt(month)) {
+      setInputError({
+        day: false,
+        month: false,
+        year: false,
+      });
+      setAppError((prevErrors) => ({ ...prevErrors, month: true }));
+      setInvalidDateError(false);
+    } else if (!day || !parseInt(day)) {
+      setInputError({
+        day: false,
+        month: false,
+        year: false,
+      });
+      setAppError((prevErrors) => ({ ...prevErrors, day: true }));
+      setInvalidDateError(false);
+    } else {
+      setInputError({
+        day: false,
+        month: false,
+        year: false,
+      });
+      setAppError({ day: false, month: false, year: false });
+      setInvalidDateError(false);
+    }
+    console.log(appError);
+  };
+
   const calculateAge = () => {
     const todayDate = new Date();
     const birthDate = new Date(`${year}-0${month}-${day}`);
@@ -36,15 +81,95 @@ const App = () => {
     const todayYear = todayDate.getFullYear();
     const todayMonth = todayDate.getMonth();
     const todayDay = todayDate.getDate();
-
+    //0759 882003
     //Todays initials
     const birthYear = birthDate.getFullYear();
     const birthMonth = birthDate.getMonth();
     const birthDay = birthDate.getDate();
 
+    //Check if it's a valid date
+    var validationDate = new Date(year, parseFloat(month), 0);
+    var numberOfDays = validationDate.getDate();
+    console.log("Validation date", validationDate);
+    //Check if empty
+    if (!year || !parseInt(year)) {
+      setInputError({
+        day: false,
+        month: false,
+        year: false,
+      });
+      setAppError((prevErrors) => ({ ...prevErrors, year: true }));
+      setInvalidDateError(false);
+    } else if (!month || !parseInt(month)) {
+      setInputError({
+        day: false,
+        month: false,
+        year: false,
+      });
+      setAppError((prevErrors) => ({ ...prevErrors, month: true }));
+      setInvalidDateError(false);
+    } else if (!day || !parseInt(day)) {
+      setInputError({
+        day: false,
+        month: false,
+        year: false,
+      });
+      setAppError((prevErrors) => ({ ...prevErrors, day: true }));
+      setInvalidDateError(false);
+    } else {
+      if (parseFloat(day) > 31) {
+        setInputError((prevErrors) => ({ ...prevErrors, day: true }));
+        setAppError({ day: false, month: false, year: false });
+        setInvalidDateError(false);
+        setYears("");
+        setMonths("");
+        setDays("");
+        return;
+      } else if (parseFloat(month) > 12) {
+        setInputError((prevErrors) => ({ ...prevErrors, month: true }));
+        setAppError({ day: false, month: false, year: false });
+        setInvalidDateError(false);
+        setYears("");
+        setMonths("");
+        setDays("");
+        return;
+      } else if (parseFloat(year) > todayYear) {
+        setInputError((prevErrors) => ({ ...prevErrors, year: true }));
+        setAppError({ day: false, month: false, year: false });
+        setInvalidDateError(false);
+        setYears("");
+        setMonths("");
+        setDays("");
+        return;
+      } else {
+        //Checking whether the day is not in that month
+        if (parseFloat(day) > numberOfDays) {
+          console.log("The number of right days is", numberOfDays);
+          console.log("Man that's impossible", day);
+          console.log("Birth day", birthDate);
+          console.log("Today day", todayDate);
+          setInvalidDateError(true);
+          setYears("");
+          setMonths("");
+          setDays("");
+          return null;
+        }
+        setInputError({
+          day: false,
+          month: false,
+          year: false,
+        });
+        setAppError({ day: false, month: false, year: false });
+        setInvalidDateError(false);
+      }
+    }
+
     if (todayMonth == birthMonth) {
       if (todayDay == birthDay) {
         const age = todayDate.getFullYear() - birthDate.getFullYear();
+        setYears(age);
+        setMonths(0);
+        setDays(0);
         console.log(
           "Everything has matched both month and day, happy birthday",
           age,
@@ -56,12 +181,18 @@ const App = () => {
         const monthsOld = todayDate.getMonth() - birthDate.getMonth();
 
         if (todayDay < birthDay) {
+          setYears(age);
+          setMonths(11);
+          setDays(todayDay);
           console.log(age, "years", 11, "months", todayDay, "days old");
           console.log("Less than the birthday");
         } else if (todayDay > birthDay) {
           const age = todayDate.getFullYear() - birthDate.getFullYear();
           const daysOld = todayDate.getDate() - birthDate.getDate();
 
+          setYears(age);
+          setMonths(0);
+          setDays(daysOld);
           console.log(age, "years", "00", "months", daysOld, "days old");
 
           console.log("Greater than the birthday");
@@ -72,9 +203,15 @@ const App = () => {
       var monthsOld = todayDate.getMonth() - birthDate.getMonth();
       var daysOld = 0;
       if (todayDate.getDate() == birthDate.getDate()) {
+        setYears(age);
+        setMonths(monthsOld);
+        setDays(0);
         console.log(age, "years", monthsOld, "months", "00 days old");
       } else if (todayDate.getDate() > birthDate.getDate()) {
         daysOld = todayDate.getDate() - birthDate.getDate();
+        setYears(age);
+        setMonths(monthsOld);
+        setDays(daysOld);
         console.log(
           age,
           "age",
@@ -86,6 +223,9 @@ const App = () => {
       } else {
         monthsOld -= 1;
         const daysOld = todayDate.getDate();
+        setYears(age);
+        setMonths(monthsOld);
+        setDays(daysOld);
         console.log(age, "years", monthsOld, "months", daysOld, "days old");
       }
       /* console.log(monthsOld); */
@@ -100,6 +240,9 @@ const App = () => {
 
       if (todayDay == birthDay) {
         remainingMonths.length += 1;
+        setYears(age);
+        setMonths(remainingMonths.length);
+        setDays(0);
         console.log(
           age,
           "years",
@@ -108,6 +251,9 @@ const App = () => {
           "00 days old"
         );
       } else if (todayDay < birthDay) {
+        setYears(age);
+        setMonths(remainingMonths.length);
+        setDays(todayDay);
         console.log(
           age,
           "years",
@@ -117,6 +263,9 @@ const App = () => {
           "days old"
         );
       } else {
+        setYears(age);
+        setMonths(remainingMonths.length);
+        setDays(todayDay - birthDay);
         console.log(
           age,
           "years",
@@ -156,7 +305,7 @@ const App = () => {
         />
       </div>
 
-      <Output />
+      <Output years={years} months={months} days={days} />
     </div>
   );
 };
