@@ -70,7 +70,6 @@ const App = () => {
       setAppError({ day: false, month: false, year: false });
       setInvalidDateError(false);
     }
-    console.log(appError);
   };
 
   const calculateAge = () => {
@@ -90,7 +89,6 @@ const App = () => {
     //Check if it's a valid date
     var validationDate = new Date(year, parseFloat(month), 0);
     var numberOfDays = validationDate.getDate();
-    console.log("Validation date", validationDate);
     //Check if empty
     if (!year || !parseInt(year)) {
       setInputError({
@@ -144,10 +142,6 @@ const App = () => {
       } else {
         //Checking whether the day is not in that month
         if (parseFloat(day) > numberOfDays) {
-          console.log("The number of right days is", numberOfDays);
-          console.log("Man that's impossible", day);
-          console.log("Birth day", birthDate);
-          console.log("Today day", todayDate);
           setInvalidDateError(true);
           setYears("");
           setMonths("");
@@ -170,11 +164,7 @@ const App = () => {
         setYears(age);
         setMonths(0);
         setDays(0);
-        console.log(
-          "Everything has matched both month and day, happy birthday",
-          age,
-          " years"
-        );
+
         return age;
       } else {
         const age = todayDate.getFullYear() - birthDate.getFullYear() - 1;
@@ -184,8 +174,6 @@ const App = () => {
           setYears(age);
           setMonths(11);
           setDays(todayDay);
-          console.log(age, "years", 11, "months", todayDay, "days old");
-          console.log("Less than the birthday");
         } else if (todayDay > birthDay) {
           const age = todayDate.getFullYear() - birthDate.getFullYear();
           const daysOld = todayDate.getDate() - birthDate.getDate();
@@ -193,9 +181,6 @@ const App = () => {
           setYears(age);
           setMonths(0);
           setDays(daysOld);
-          console.log(age, "years", "00", "months", daysOld, "days old");
-
-          console.log("Greater than the birthday");
         }
       }
     } else if (todayMonth > birthMonth) {
@@ -206,29 +191,18 @@ const App = () => {
         setYears(age);
         setMonths(monthsOld);
         setDays(0);
-        console.log(age, "years", monthsOld, "months", "00 days old");
       } else if (todayDate.getDate() > birthDate.getDate()) {
         daysOld = todayDate.getDate() - birthDate.getDate();
         setYears(age);
         setMonths(monthsOld);
         setDays(daysOld);
-        console.log(
-          age,
-          "age",
-          monthsOld,
-          "months old and",
-          daysOld,
-          "days old"
-        );
       } else {
         monthsOld -= 1;
         const daysOld = todayDate.getDate();
         setYears(age);
         setMonths(monthsOld);
         setDays(daysOld);
-        console.log(age, "years", monthsOld, "months", daysOld, "days old");
       }
-      /* console.log(monthsOld); */
     } else {
       const age = todayDate.getFullYear() - birthDate.getFullYear() - 1;
       const remainingMonths = [];
@@ -236,51 +210,21 @@ const App = () => {
         remainingMonths.push(month);
       }
 
-      console.log(remainingMonths);
-
       if (todayDay == birthDay) {
         remainingMonths.length += 1;
         setYears(age);
         setMonths(remainingMonths.length);
         setDays(0);
-        console.log(
-          age,
-          "years",
-          remainingMonths.length,
-          "months",
-          "00 days old"
-        );
       } else if (todayDay < birthDay) {
         setYears(age);
         setMonths(remainingMonths.length);
         setDays(todayDay);
-        console.log(
-          age,
-          "years",
-          remainingMonths.length,
-          "months",
-          todayDay,
-          "days old"
-        );
       } else {
         setYears(age);
         setMonths(remainingMonths.length);
         setDays(todayDay - birthDay);
-        console.log(
-          age,
-          "years",
-          remainingMonths.length,
-          "months",
-          todayDay - birthDay,
-          "days old"
-        );
       }
-
-      console.log("Today's month is less than birth month!");
     }
-
-    console.log("Birth day", birthDate);
-    console.log("Today day", todayDate);
   };
 
   return (

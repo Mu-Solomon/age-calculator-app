@@ -9,8 +9,6 @@ const Input = ({
   handleMonth,
   handleYear,
 }) => {
-  /* console.log(appError);
-   */
   return (
     <div className="flex  p-8 py-14 md:gap-4 md:mx-3">
       <div className="flex flex-col gap-[2px]">
