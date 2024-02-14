@@ -1,4 +1,4 @@
-import { mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const dateSchema = mongoose.Schema({
   day: { type: String, required: true },
@@ -6,4 +6,5 @@ const dateSchema = mongoose.Schema({
   year: { type: String, required: true },
 });
 
-export const Date = mongoose.models.Date || mongoose.model("Date", dateSchema);
+export const Date = mongoose.model("Date", dateSchema);
+//mongoose.models.Date ||

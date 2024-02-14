@@ -1,9 +1,9 @@
 import React from "react";
 
 const getDates = async () => {
-  const res = await fetch("http://localhost:3000/api/dates");
+  const res = await fetch("http://localhost:3000/api/");
 
-  if (!res) {
+  if (!res.ok) {
     throw new Error("Something isn't right");
   }
   return res.json();
@@ -11,7 +11,7 @@ const getDates = async () => {
 
 const DatesPage = async () => {
   const dates = await getDates();
-console.log(dates);
+  console.log(dates);
   return <div>Hello here you'll find dates</div>;
 };
 
