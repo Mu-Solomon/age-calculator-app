@@ -1,7 +1,7 @@
 import React from "react";
 
 const getDates = async () => {
-  const res = await fetch("https://lis-age.netlify.app/api");
+  const res = await fetch("https://master--lis-age.netlify.app/api");
 
   if (!res.ok) {
     throw new Error("Something isn't right");

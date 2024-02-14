@@ -195,13 +195,13 @@ const App = () => {
   };
 
   //Handling the server side
- 
 
   const [state, formAction] = useFormState(testServer, undefined);
 
   return (
     <div className="bg-[#ffffff] rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-[100px] md:w-[600px] ">
-      <h1>Check error</h1>      <form action={formAction}>
+      <h1>Changed error</h1>{" "}
+      <form action={formAction}>
         <Input
           appError={appError}
           inputError={inputError}
