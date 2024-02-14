@@ -1,8 +1,11 @@
 "use client";
+import React, { useState } from "react";
+import { useFormState } from "react-dom";
+
+import { testServer } from "@/lib/actions";
+
 import Input from "@/components/input";
 import Output from "@/components/output";
-import React, { useState } from "react";
-import Image from "next/image";
 
 const App = () => {
   const [appError, setAppError] = useState({
@@ -34,42 +37,6 @@ const App = () => {
   };
   const handleYear = (e) => {
     setYear(e.target.value);
-  };
-
-  const checkErr = () => {
-    if (!year || !parseInt(year)) {
-      setInputError({
-        day: false,
-        month: false,
-        year: false,
-      });
-      setAppError((prevErrors) => ({ ...prevErrors, year: true }));
-      setInvalidDateError(false);
-    } else if (!month || !parseInt(month)) {
-      setInputError({
-        day: false,
-        month: false,
-        year: false,
-      });
-      setAppError((prevErrors) => ({ ...prevErrors, month: true }));
-      setInvalidDateError(false);
-    } else if (!day || !parseInt(day)) {
-      setInputError({
-        day: false,
-        month: false,
-        year: false,
-      });
-      setAppError((prevErrors) => ({ ...prevErrors, day: true }));
-      setInvalidDateError(false);
-    } else {
-      setInputError({
-        day: false,
-        month: false,
-        year: false,
-      });
-      setAppError({ day: false, month: false, year: false });
-      setInvalidDateError(false);
-    }
   };
 
   const calculateAge = () => {
@@ -227,29 +194,36 @@ const App = () => {
     }
   };
 
+  //Handling the server side
+ 
+
+  const [state, formAction] = useFormState(testServer, undefined);
+
   return (
     <div className="bg-[#ffffff] rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-[100px] md:w-[600px] ">
-      <Input
-        appError={appError}
-        inputError={inputError}
-        invalidDateError={invalidDateError}
-        handleDay={handleDay}
-        handleMonth={handleMonth}
-        handleYear={handleYear}
-      />
-
-      <div className="relative">
-        <div className="flex justify-center items-center">
-          <hr className="w-10/12 md:w-[520px]" />
-        </div>
-        <img
-          onClick={calculateAge}
-          src="/images/icon-arrow.svg"
-          className="bg-[#854dff] hover:bg-[#141414] hover:cursor-pointer rounded-full p-4 w-14 md:w-[66px] absolute left-[140px] md:left-[495px] md:top-[-32px] top-[-28px]"
+      <form action={formAction}>
+        <Input
+          appError={appError}
+          inputError={inputError}
+          invalidDateError={invalidDateError}
+          handleDay={handleDay}
+          handleMonth={handleMonth}
+          handleYear={handleYear}
         />
-      </div>
-
-      <Output years={years} months={months} days={days} />
+        <div className="relative">
+          <div className="flex justify-center items-center">
+            <hr className="w-10/12 md:w-[520px]" />
+          </div>
+          <button>
+            <img
+              onClick={calculateAge}
+              src="/images/icon-arrow.svg"
+              className="bg-[#854dff] hover:bg-[#141414] hover:cursor-pointer rounded-full p-4 w-14 md:w-[66px] absolute left-[140px] md:left-[495px] md:top-[-32px] top-[-28px]"
+            />
+          </button>
+        </div>
+        <Output years={years} months={months} days={days} />
+      </form>{" "}
     </div>
   );
 };
