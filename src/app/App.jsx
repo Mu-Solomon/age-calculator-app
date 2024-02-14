@@ -201,7 +201,7 @@ const App = () => {
 
   return (
     <div className="bg-[#ffffff] rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-[100px] md:w-[600px] ">
-      <form action={formAction}>
+      <h1>Check error</h1>      <form action={formAction}>
         <Input
           appError={appError}
           inputError={inputError}
