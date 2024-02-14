@@ -1,7 +1,7 @@
 import React from "react";
 
 const getDates = async () => {
-  const res = await fetch("http://localhost:3000/api/");
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
 
   if (!res.ok) {
     throw new Error("Something isn't right");
