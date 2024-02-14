@@ -1,7 +1,7 @@
 import React from "react";
 
 const getDates = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const res = await fetch("https://lis-age.netlify.app/api/");
 
   if (!res.ok) {
     throw new Error("Something isn't right");
