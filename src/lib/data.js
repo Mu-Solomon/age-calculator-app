@@ -3,8 +3,7 @@ const { connectToDb } = require("./utils");
 export const getDates = async () => {
   try {
     connectToDb();
-    console.log("Connected to Db");
-    const dates = await Date.find();
+    const dates = await DateModel.find();
     return dates;
   } catch (error) {
     console.log(error);

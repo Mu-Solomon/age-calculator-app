@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
 
-const dateSchema = mongoose.Schema({
-  day: { type: String, required: true },
-  month: { type: String, required: true },
-  year: { type: String, required: true },
-});
+const dateSchema = mongoose.Schema(
+  {
+    day: { type: String, required: true },
+    month: { type: String, required: true },
+    year: { type: String, required: true },
+    timeCreated: { type: Date, default: Date.now },
+  },
+  { timestamps: true }
+);
 
-export const Date = mongoose.model("Date", dateSchema);
-//mongoose.models.Date ||
+export const DateModel =
+  mongoose.models.DateModel || mongoose.model("DateModel", dateSchema);
