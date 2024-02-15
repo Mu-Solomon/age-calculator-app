@@ -1,7 +1,10 @@
 import React from "react";
 
 const getDates = async () => {
-  const res = await fetch("https://age-calculator-app-swart-phi.vercel.app/api");
+  const res = await fetch(
+    "https://age-calculator-app-swart-phi.vercel.app/api",
+    { cache: "no-store" }
+  );
 
   if (!res.ok) {
     throw new Error("Something isn't right");
