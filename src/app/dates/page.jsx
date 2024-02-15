@@ -1,7 +1,7 @@
 import React from "react";
 
 const getDates = async () => {
-  const res = await fetch("https://master--lis-age.netlify.app/api");
+  const res = await fetch("https://age-calculator-app-swart-phi.vercel.app/api");
 
   if (!res.ok) {
     throw new Error("Something isn't right");
