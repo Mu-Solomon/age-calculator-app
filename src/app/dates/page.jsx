@@ -1,4 +1,4 @@
-/* import React from "react";
+import React from "react";
 
 const getDates = async () => {
   const apiUrl = process.env.API_URI;
@@ -79,15 +79,6 @@ const DatesPage = async () => {
       </div>
     </React.Fragment>
   );
-};
-
-export default DatesPage;
- */
-
-import React from "react";
-
-const DatesPage = () => {
-  return <div>Dates page!</div>;
 };
 
 export default DatesPage;
