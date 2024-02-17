@@ -200,7 +200,7 @@ const App = () => {
 
   return (
     <div className="bg-[#ffffff] rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl rounded-br-[100px] md:w-[600px] ">
-      <h1>Disabling cache</h1>{" "}
+      {/* <h1>Disabling cache</h1>{" "} */}
       <form action={formAction}>
         <Input
           appError={appError}
