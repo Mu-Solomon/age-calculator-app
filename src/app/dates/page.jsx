@@ -2,7 +2,7 @@ import React from "react";
 
 const getDates = async () => {
   const apiUrl = process.env.API_URL;
-  const res = await fetch(`${apiUrl}/api"`);
+  const res = await fetch(`${apiUrl}/api`);
 
   if (!res.ok) {
     throw new Error("Something isn't right");
