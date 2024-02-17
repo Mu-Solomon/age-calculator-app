@@ -1,7 +1,7 @@
 import React from "react";
 
 const getDates = async () => {
-  const apiUrl = process.env.API_URL;
+  const apiUrl = process.env.API_URI;
   const res = await fetch(`${apiUrl}/api`);
 
   if (!res.ok) {
